@@ -34,6 +34,12 @@ app.MapControllers();
 
 //Minimal API
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ShopContext>();
+    await db.Database.EnsureCreatedAsync();
+}
+
 
 app.MapGet("/products", async (ShopContext _context) =>
 {
