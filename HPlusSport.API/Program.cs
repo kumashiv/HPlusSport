@@ -56,4 +56,10 @@ app.MapGet("/products/{id}", async (int id, ShopContext _context) =>
     return Results.Ok(product);
 });
 
+
+app.MapGet("/products/available", async (ShopContext _context) =>
+
+    Results.Ok(await _context.Products.Where(p => p.IsAvailable).ToListAsync())
+);
+
 app.Run();

@@ -53,6 +53,11 @@ namespace HPlusSport.API.Controllers
 
 
 
+        [HttpGet("available")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetAvailableProducts()
+        {
+            return await _context.Products.Where(p => p.IsAvailable).ToListAsync();
+        }
 
 
 
