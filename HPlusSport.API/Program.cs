@@ -31,4 +31,23 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+
+//Minimal API
+
+
+app.MapGet("/products", async (ShopContext _context) =>
+{
+    return await _context.Products.ToArrayAsync();
+});
+
+app.MapGet("/products/{id}", async (int id, ShopContext _context) =>
+{
+    var product = await _context.Products.FindAsync(id);
+    if (product == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(product);
+});
+
 app.Run();
