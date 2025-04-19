@@ -33,7 +33,7 @@ app.MapControllers();
 
 
 //Minimal API
-
+// connecting to existing model -InMemory database - ModelBuilderExtension
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ShopContext>();
@@ -60,6 +60,7 @@ app.MapGet("/products/{id}", async (int id, ShopContext _context) =>
 app.MapGet("/products/available", async (ShopContext _context) =>
 
     Results.Ok(await _context.Products.Where(p => p.IsAvailable).ToListAsync())
+    //Results.Ok(await _context.Products.Where(p => p.IsAvailable).ToArrayAsync())
 );
 
 app.Run();

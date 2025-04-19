@@ -19,7 +19,6 @@ namespace HPlusSport.API.Controllers
         }
 
 
-
         [HttpGet]
         //public string GetAllProducts()
         //public ActionResult GetAllProducts()
@@ -52,12 +51,27 @@ namespace HPlusSport.API.Controllers
         }
 
 
-
         [HttpGet("available")]
         public async Task<ActionResult<IEnumerable<Product>>> GetAvailableProducts()
         {
-            return await _context.Products.Where(p => p.IsAvailable).ToListAsync();
+            return await _context.Products.Where(p => p.IsAvailable).ToListAsync();   //OR
+            //return await _context.Products.Where(p => p.IsAvailable).ToArrayAsync();
         }
+
+        [HttpPost]
+        public async Task<ActionResult> PostProduct(Product product)
+        {
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+
+            //201 Created Response if succesfull
+            return CreatedAtAction(
+                nameof(GetProduct),     // avoiding string "GetProduct"
+                new { id = product.Id},
+                product);
+        }
+
+
 
 
 
