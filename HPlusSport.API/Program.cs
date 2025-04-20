@@ -1,4 +1,5 @@
 using HPlusSport.API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -130,6 +131,7 @@ app.MapDelete("/products/{id}", async (ShopContext _context, int id) =>
 
     return Results.Ok(product);
 });
+
 
 
 app.Run();
